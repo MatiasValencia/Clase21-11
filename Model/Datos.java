@@ -25,12 +25,25 @@ public class Datos {
     public void leerArchivo() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
-            br.readLine();
-        } catch(FileNotFoundException e) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                agregarPersona(linea);
+            }
+            br.close();
+        } catch(Exception e) {
             System.out.println("El archivo no se ha encontrado");
         }
     }
     public void guardarArchivo() {
-
+        ArrayList<String> aux = listaPersonasString();
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo));
+            for (String p : aux) {
+                bw.write(p);
+            }
+            bw.close();
+        } catch(Exception e) {
+            System.out.println("El archivo no se ha encontrado");
+        }
     }
 }
